@@ -1,0 +1,62 @@
+@import "~bootstrap/scss/bootstrap";
+@import "~@fortawesome/fontawesome-free/scss/fontawesome";
+
+.bd-placeholder-img {
+  font-size: 1.125rem;
+  text-anchor: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+@media (min-width: 768px) {
+  .bd-placeholder-img-lg {
+    font-size: 3.5rem;
+  }
+}
+
+main > .container {
+  padding-top: 60px;
+  padding-left: 15px;
+  padding-bottom: 60px;
+  height: 100%;
+  overflow: scroll;
+  -ms-overflow-style: none;
+}
+
+main > .container::-webkit-scrollbar {
+  display: none;
+}
+
+.footer {
+  background-color: #f5f5f5;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
+.footer > .container {
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+.task-list-group-item {
+  padding-top: 0px;
+  padding-bottom: 0px;
+  padding-right: 0px;
+}
+
+.gray {
+  color: lightgray;
+}
+
+.black {
+  color: black;
+}
+
+.main {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
