@@ -1,17 +1,16 @@
 import React from 'react';
 
+// @ts-ignore
+import logo from '../assets/favicon.png';
+
 type Task = { text: string, checked: boolean };
 
 class App extends React.Component<any, any> {
     constructor(props: any) {
         super(props);
-        this.state = {
-            tasks: [
-                {text: 'Do A', checked: false},
-                {text: 'Do B', checked: true},
-                {text: 'Do C', checked: false},
-            ]
-        };
+        const jsonTasks = localStorage.getItem('tasks');
+        const tasks = jsonTasks ? JSON.parse(jsonTasks) : [];
+        this.state = {tasks};
     }
 
     onInputChange = (event: any) => {
@@ -21,6 +20,7 @@ class App extends React.Component<any, any> {
     finishEditing = () => {
         const {tasks} = this.state;
         tasks[this.state.editingIndex].text = this.state.editingValue;
+        localStorage.setItem('tasks', JSON.stringify(tasks));
         this.setState({tasks, editingIndex: -1});
     };
 
@@ -35,18 +35,21 @@ class App extends React.Component<any, any> {
     onUncheckClick = (index: number) => {
         const {tasks} = this.state;
         tasks[index].checked = false;
+        localStorage.setItem('tasks', JSON.stringify(tasks));
         this.setState({tasks});
     };
 
     onDeleteClick = (index: number) => {
         const {tasks} = this.state;
         tasks.splice(index, 1);
+        localStorage.setItem('tasks', JSON.stringify(tasks));
         this.setState({tasks});
     };
 
     onCheckClick = (index: number) => {
         const {tasks} = this.state;
         tasks[index].checked = true;
+        localStorage.setItem('tasks', JSON.stringify(tasks));
         this.setState({tasks});
     };
 
@@ -123,6 +126,7 @@ class App extends React.Component<any, any> {
     addTask = () => {
         const {tasks} = this.state;
         tasks.push({text: "", checked: false});
+        localStorage.setItem('tasks', JSON.stringify(tasks));
         this.setState({tasks});
         this.startEditing(tasks.length - 1);
     };
@@ -141,28 +145,8 @@ class App extends React.Component<any, any> {
     renderHeader = () => {
         return (<header>
             <nav className="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <img className="logo" src={logo} alt="logo"/>
                 <a className="navbar-brand" href="#">JustinTime ToDo List</a>
-                <button className="navbar-toggler" type="button" data-toggle="collapse"
-                        data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false"
-                        aria-label="Toggle navigation">
-                    <span className="navbar-toggler-icon"></span>
-                </button>
-                <div className="collapse navbar-collapse" id="navbarCollapse">
-                    <ul className="navbar-nav mr-auto">
-                        <li className="nav-item">
-                            <a className="nav-link active" href="#">Checked</a>
-                        </li>
-                        <li className="nav-item">
-                            <a className="nav-link" href="#">Unchecked</a>
-                        </li>
-                        <li className="nav-item active">
-                            <a className="nav-link" href="#">Due date</a>
-                        </li>
-                        <li className="nav-item">
-                            <a className="nav-link" href="#">No due date</a>
-                        </li>
-                    </ul>
-                </div>
             </nav>
         </header>);
     };
